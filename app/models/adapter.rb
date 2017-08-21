@@ -15,8 +15,23 @@ class Adapter
     JSON.parse(File.read(file))
   end
 
+
   def create_objects_from_file
     # create article and category objects here
-  end
+    data_hash = JSON.parse(File.read(file))
+    data_hash[0].each do |obj|
+       puts "*" * 20
+        puts data_hash[0]["title"]
+        puts data_hash[0]["contributor"]
+        puts data_hash[0]["url"]
+        puts data_hash[0]["category"]
+        puts data_hash[0]["description"]
+        puts  data_hash[0]["time_published"]
+      end
+
+end
+
+
+
 
 end
