@@ -6,17 +6,23 @@ require 'json'
 class Adapter
   attr_accessor :file, :articles
 
+  ALL = []
+
   def initialize(file)
     @file = file
     @articles = self.class.articles(file)
+    self.class.all << self
   end
 
   def self.articles(file)
     JSON.parse(File.read(file))
   end
 
-  def create_objects_from_file
-    # create article and category objects here
+  def self.all
+    ALL
   end
 
-end
+
+
+    end
+ # (title, description, url, contributor, time_published, category)
