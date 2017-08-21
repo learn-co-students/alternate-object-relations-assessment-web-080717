@@ -6,32 +6,31 @@ require 'json'
 class Adapter
   attr_accessor :file, :articles
 
+  ALL = []
+
   def initialize(file)
     @file = file
     @articles = self.class.articles(file)
+    self.class.all << self
   end
 
   def self.articles(file)
     JSON.parse(File.read(file))
   end
 
+  def self.all
+    ALL
+  end
+
 
   def create_objects_from_file
     # create article and category objects here
-    data_hash = JSON.parse(File.read(file))
-    data_hash[0].each do |obj|
-       puts "*" * 20
-        puts data_hash[0]["title"]
-        puts data_hash[0]["contributor"]
-        puts data_hash[0]["url"]
-        puts data_hash[0]["category"]
-        puts data_hash[0]["description"]
-        puts  data_hash[0]["time_published"]
+        Adapter.new('newyorker.json').articles.collect do |data_hash|
+ Category.new(data_hash["category"])
+
+       Article.new(data_hash["title"], data_hash["description"], data_hash["url"], data_hash["contributor"], data_hash["publishedAt"],data_hash["contributor"])
+          end
       end
 
-end
-
-
-
-
-end
+    end
+ # (title, description, url, contributor, time_published, category)
