@@ -23,14 +23,6 @@ class Adapter
   end
 
 
-  def create_objects_from_file
-    # create article and category objects here
-        Adapter.new('newyorker.json').articles.collect do |data_hash|
- Category.new(data_hash["category"])
-
-       Article.new(data_hash["title"], data_hash["description"], data_hash["url"], data_hash["contributor"], data_hash["publishedAt"],data_hash["contributor"])
-          end
-      end
 
     end
  # (title, description, url, contributor, time_published, category)
